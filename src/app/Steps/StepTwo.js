@@ -1,40 +1,18 @@
 import React, {useRef, useState} from 'react';
 import styles from "@/app/page.module.css";
 
-const StepTwo = ({ handleChange, handleCheckboxChange, professionalRoles, aboutMe, handleFileUpload }) => {
+const StepTwo = ({ handleChange, handleCheckboxChange, professionalRoles, numCompanies,aboutMe, amountClosed, handleFileUpload, workExperiences,onWorkExperienceChange,onAddWorkExperience, onRemoveWorkExperience }) => {
 
     const fileInputRef = useRef();
 
 
-    // State to store multiple work experiences
-    const [workExperiences, setWorkExperiences] = useState([
-        { company: '', startDate: '', endDate: '' },
-    ]);
+
 
     const handleBrowseFilesClick = (e) => {
         e.preventDefault(); // Prevent form submission
         fileInputRef.current.click(); // Trigger the file input click
     };
 
-    // Handle dynamic field changes
-    const handleWorkExperienceChange = (index, event) => {
-        const { name, value } = event.target;
-        const newWorkExperiences = [...workExperiences];
-        newWorkExperiences[index][name] = value;
-        setWorkExperiences(newWorkExperiences);
-    };
-
-    // Add a new work experience entry
-    const addWorkExperience = () => {
-        setWorkExperiences([...workExperiences, { company: '', startDate: '', endDate: '' }]);
-    };
-
-    // Remove a work experience entry
-    const removeWorkExperience = (index) => {
-        const newWorkExperiences = [...workExperiences];
-        newWorkExperiences.splice(index, 1);
-        setWorkExperiences(newWorkExperiences);
-    };
 
     return (
         <div>
@@ -64,6 +42,19 @@ const StepTwo = ({ handleChange, handleCheckboxChange, professionalRoles, aboutM
                     className={styles.textarea}
                 />
             </div>
+
+            <div className={styles.inputGroup}>
+                <label htmlFor="numCompanies">Companies Worked For</label>
+                <input
+                    id="numCompanies"
+                    name="numCompanies"
+                    type="number" // Assuming you want a numeric input
+                    placeholder="Enter number"
+                    value={numCompanies}
+                    onChange={handleChange}
+                    className={styles.inputField}
+                />
+            </div>
             <label className={styles.fileUploadLabel}>Add VSL - About me</label>
             <div className={styles.fileUploadContainer}>
                 <input
@@ -83,6 +74,26 @@ const StepTwo = ({ handleChange, handleCheckboxChange, professionalRoles, aboutM
                     Browse Files</button>
             </div>
 
+            <div className={styles.inputGroup}>
+                <label htmlFor="amountClosed">Amount Closed</label>
+                <select
+                    id="amountClosed"
+                    name="amountClosed"
+                    value={amountClosed}
+                    onChange={handleChange}
+                    className={amountClosed ? "selected-option" : "select-placeholder"}
+                >
+                    <option value="" disabled>Select Amount Closed</option>
+                    {/* Update your options as needed */}
+                    <option value="0-100000">0 - $100,000</option>
+                    <option value="100001-500000">$100,001 - $500,000</option>
+                    <option value="500001-1000000">$500,001 - $1,000,000</option>
+                    <option value="1000001-5000000">$1,000,001 - $5,000,000</option>
+                    <option value="5000001+">$5,000,001+</option>
+                </select>
+            </div>
+
+
             <label className={styles.fileUploadLabel}>Work Experience</label>
             {workExperiences.map((experience, index) => (
                 <div key={index} className={styles.workExperienceBlock}>
@@ -90,7 +101,7 @@ const StepTwo = ({ handleChange, handleCheckboxChange, professionalRoles, aboutM
                         <button
                             type="button"
                             className={styles.removeButton}
-                            onClick={() => removeWorkExperience(index)}
+                            onClick={() => onRemoveWorkExperience(index)}
                         >
                             X
                         </button>
@@ -103,7 +114,7 @@ const StepTwo = ({ handleChange, handleCheckboxChange, professionalRoles, aboutM
                             name="company"
                             placeholder=""
                             value={experience.company}
-                            onChange={(e) => handleWorkExperienceChange(index, e)}
+                            onChange={(e) => onWorkExperienceChange(index, e)}
                             className={styles.inputField}
                         />
                     </div>
@@ -114,7 +125,7 @@ const StepTwo = ({ handleChange, handleCheckboxChange, professionalRoles, aboutM
                             type="month" // Change type to 'month'
                             name="startDate"
                             value={experience.startDate}
-                            onChange={(e) => handleWorkExperienceChange(index, e)}
+                            onChange={(e) => onWorkExperienceChange(index, e)}
                             className={styles.inputField}
                         />
                     </div>
@@ -125,13 +136,14 @@ const StepTwo = ({ handleChange, handleCheckboxChange, professionalRoles, aboutM
                             type="month" // Change type to 'month'
                             name="endDate"
                             value={experience.endDate}
-                            onChange={(e) => handleWorkExperienceChange(index, e)}
+                            onChange={(e) => onWorkExperienceChange(index, e)}
                             className={styles.inputField}
                         />
                     </div>
                 </div>
             ))}
-            <button className={styles.addButton} type="button" onClick={addWorkExperience}></button>
+            <button className={styles.addButton} type="button" onClick={onAddWorkExperience}>
+            </button>
         </div>
     );
 };

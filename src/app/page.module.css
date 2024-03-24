@@ -2,13 +2,31 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   min-height: 100vh;
   height: 100%;
   padding: 80px 0px;
   background: #242424; /* Adjust background color as needed */
   color: #fff; /* Adjust text color as needed */
 }
+
+.submissionMessageContainer {
+  text-align: center;
+  padding: 2rem;
+  max-width: 600px; /* Adjust based on your preference */
+  margin: 0 auto; /* Center the container */
+}
+
+.submissionMessageTitle {
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.submissionMessageText {
+  color: #ccc; /* Lighter text color for better readability */
+  font-size: 16px; /* Adjust based on your preference */
+}
+
 
 .form {
   width: 100%;
@@ -43,7 +61,7 @@
   width: 100%;
   padding: 0.5rem;
   border-radius: 4px;
-  border: 1px solid #9d9d9d; /* Adjust border color as needed */
+  border: 1px solid #606060; /* Adjust border color as needed */
   background: #242424; /* Adjust input background color as needed */
   color: #e3e3e3;
 }
@@ -127,7 +145,7 @@
   border-radius: 6px;
   margin-bottom: 0.5rem;
   font-size: 13px;
-  border:1px solid #A9A9A9;
+  border:1px solid #606060;
 }
 
 .checkboxGroup input[type="checkbox"] {
@@ -143,7 +161,7 @@
   width: 100%;
   padding: 0.5rem;
   border-radius: 4px;
-  border: 1px solid #9d9d9d;
+  border: 1px solid #606060;
   background: #242424;
   color: #e3e3e3;
   resize: vertical;
@@ -308,7 +326,7 @@
 
 /* Add focus styles for textareas as well */
 .textarea:focus {
-  border-color: #FFFFFF; /* Change border color on focus */
+  border-color: #606060; /* Change border color on focus */
   background: #1C1C1C; /* Optionally change the background */
   color: #FFFFFF; /* Optionally change the text color */
 }
