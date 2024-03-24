@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import styles from './page.module.css';
 import StepOne from "@/app/Steps/StepOne";
-import StepTwo from "@/app/Steps/StepTwo"; // Make sure to create this CSS module
+import StepTwo from "@/app/Steps/StepTwo";
+import StepThree from "@/app/Steps/StepThree"; // Make sure to create this CSS module
 
 const StepForm = () => {
     const [age, setAge] = useState('');
@@ -22,6 +23,8 @@ const StepForm = () => {
 
     const [aboutMe, setAboutMe] = useState('');
     const [aboutMeFile, setAboutMeFile] = useState(null);
+    const [offerDetails, setOfferDetails] = useState([{ offerName: '', company: '', triage: '', avgOfferValue: '', numberOfCloses: '' }]);
+
 
     const totalSteps = 5;
 
@@ -120,20 +123,40 @@ const StepForm = () => {
                     handleCheckboxChange={handleCheckboxChange}
                     handleFileChange={handleFileChange}
                 />;
+            case 2: // Assuming StepThree is the third step
+                return (
+                    <StepThree
+                        offerDetails={offerDetails}
+                        handleChange={(index, e) => {
+                            const newOfferDetails = [...offerDetails];
+                            newOfferDetails[index][e.target.name] = e.target.value;
+                            setOfferDetails(newOfferDetails);
+                        }}
+                        addOffer={() => {
+                            setOfferDetails([...offerDetails, { offerName: '', company: '', triage: '', avgOfferValue: '', numberOfCloses: '' }]);
+                        }}
+                        removeOffer={(index) => {
+                            const filteredOffers = offerDetails.filter((_, i) => i !== index);
+                            setOfferDetails(filteredOffers);
+                        }}
+                    />
+                );
             default:
                 return null;
         }
     };
+
 
     // Function to render step indicators
     const renderStepIndicators = () => {
         return [...Array(totalSteps).keys()].map((step) => (
             <div
                 key={step}
-                className={`${styles.stepIndicator} ${step === currentStep ? styles.activeStep : ''}`}
+                className={`${styles.stepIndicator} ${step <= currentStep ? styles.activeStep : ''}`}
             />
         ));
     };
+
 
 
     return (

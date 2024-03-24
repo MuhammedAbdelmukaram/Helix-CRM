@@ -40,8 +40,9 @@ const StepOne = ({
                         name="language"
                         value={language}
                         onChange={handleChange}
+                        className={language ? "selected-option" : "select-placeholder"} // This line applies the class conditionally
                     >
-                        <option value="">Select language</option>
+                        <option value="" className="select-placeholder">Select language</option>
                         {languageOptions.map((lang) => (
                             <option key={lang} value={lang}>{lang}</option>
                         ))}
@@ -55,7 +56,7 @@ const StepOne = ({
                         value={niche}
                         onChange={handleChange}
                     >
-                        <option value="">Select niche</option>
+                        <option value="" className="select-placeholder">Select niche</option>
                         {nicheOptions.map((nich) => (
                             <option key={nich} value={nich}>{nich}</option>
                         ))}
@@ -69,7 +70,7 @@ const StepOne = ({
                         value={experience}
                         onChange={handleChange}
                     >
-                        <option value="">Select years</option>
+                        <option value="" className="select-placeholder">Select years</option>
                         {experienceOptions.map((exp) => (
                             <option key={exp} value={exp}>{exp}</option>
                         ))}
@@ -83,7 +84,7 @@ const StepOne = ({
                         value={calls}
                         onChange={handleChange}
                     >
-                        <option value="">Select calls range</option>
+                        <option value="" className="select-placeholder">Select calls range</option>
                         {callsOptions.map((call) => (
                             <option key={call} value={call}>{call}</option>
                         ))}

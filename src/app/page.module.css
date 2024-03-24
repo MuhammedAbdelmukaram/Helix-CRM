@@ -5,6 +5,7 @@
   justify-content: center;
   min-height: 100vh;
   height: 100%;
+  padding: 80px 0px;
   background: #242424; /* Adjust background color as needed */
   color: #fff; /* Adjust text color as needed */
 }
@@ -13,18 +14,29 @@
   width: 100%;
   max-width: 400px; /* Adjust the form width as needed */
   padding: 2rem;
+  margin-top: 2rem;
 }
 
 .inputGroup {
   margin-bottom: 1rem;
-  margin-top:1.5rem;
+  margin-top:2rem;
 }
 
 .inputGroup label {
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: bold;
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
 }
+
+/* page.module.css */
+.inputPlaceholder::placeholder {
+  color: #909090; /* Change color as needed */
+  opacity: 1; /* For Firefox */
+}
+
+/* Add the rest of your styles here */
+
 
 .inputGroup input,
 .inputGroup select {
@@ -35,6 +47,8 @@
   background: #242424; /* Adjust input background color as needed */
   color: #e3e3e3;
 }
+
+
 
 .nextButton {
   width: 100%;
@@ -105,14 +119,20 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 1.5rem;
+
 }
 
 .checkboxGroup label {
+  padding: 0.7rem 1rem;
+  border-radius: 6px;
   margin-bottom: 0.5rem;
+  font-size: 13px;
+  border:1px solid #A9A9A9;
 }
 
 .checkboxGroup input[type="checkbox"] {
   margin-right: 0.5rem;
+
 }
 
 .textareaGroup {
@@ -126,15 +146,21 @@
   border: 1px solid #9d9d9d;
   background: #242424;
   color: #e3e3e3;
+  resize: vertical;
   min-height: 100px; /* Adjust the height of the textarea */
 }
 
 .fileUploadContainer {
   border: 2px dashed #888;
   border-radius: 4px;
+  height: 170px;
   padding: 1rem;
   text-align: center;
   margin-bottom: 1.5rem;
+}
+.dragDropText{
+  margin-top: 16px;
+  font-size: 10px;
 }
 
 .fileUploadContainer input[type="file"] {
@@ -162,4 +188,127 @@
 .fileUploadContainer {
   background: #333; /* File upload section background */
   color: #e3e3e3; /* Text color inside the file upload section */
+}
+
+.workExperienceBlock {
+  position: relative; /* Establish relative positioning */
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  border: 1px solid #606060;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  color: white;
+  /* Fixed height can be set if needed, otherwise it will grow with content */
+}
+
+.removeButton {
+  position: absolute; /* Position the button absolutely within .workExperienceBlock */
+  top: 0.5rem; /* Position from the top */
+  right: 0.5rem; /* Position from the right */
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0;
+}
+
+.inputRow {
+  display: flex;
+  align-items: center; /* Align the label and input on their baseline */
+  margin-bottom: 0.5rem;
+}
+
+.inputLabel {
+  margin-right: 0.5rem; /* Space between label and input */
+  font-size: 11px;
+  width: 68px;
+  white-space: nowrap; /* Prevent the label from wrapping */
+  display: flex;
+  align-self: flex-end;
+}
+
+.fileUploadLabel{
+  font-size: 12px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.8rem;
+}
+
+.label{
+  font-size: 12px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.8rem;
+}
+
+.workExperienceBlock input {
+  flex-grow: 1; /* Input takes up remaining space */
+  background: transparent; /* No background */
+  border: none; /* No border */
+  max-width: 180px;
+  border-bottom: 1px solid #CCCCCC; /* Light grey bottom border */
+  color: #CCCCCC; /* Light grey text color */
+  padding: 0.3rem 0; /* Padding on top and bottom only */
+  margin-left: 0.5rem; /* Space between label and input */
+}
+
+.workExperienceBlock button {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0;
+  margin-right: 0;
+  align-self: flex-end;
+}
+
+.addButton {
+  background-color: transparent;
+  border: 1px solid #A9A9A9;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 24px;
+  margin-top: 0.8rem;
+  cursor: pointer;
+  width: 100%;
+}
+
+.addButton:hover {
+  background: #1C1C1C;
+}
+
+.addButton::before {
+  content: "+";
+  /* Additional styling for the '+' can go here */
+}
+
+/* Placeholder color */
+.workExperienceBlock input::placeholder {
+  color: #666; /* Darker grey placeholder text */
+}
+
+.workExperienceBlock input:focus {
+  border-bottom: 2px solid #FFFFFF; /* Highlight the bottom border */
+  outline: none; /* Remove the default focus outline */
+  color: #FFFFFF; /* Optionally change the text color */
+   /* Optionally change the background */
+}
+
+/* If you also want to add a focus style for checkboxes or other input types, you can do so like this: */
+.workExperienceBlock input[type='checkbox']:focus {
+  /* Your styles for focused checkboxes */
+}
+
+/* Similarly, for file upload input: */
+.fileInput:focus {
+  /* Your styles for focused file inputs */
+}
+
+/* Add focus styles for textareas as well */
+.textarea:focus {
+  border-color: #FFFFFF; /* Change border color on focus */
+  background: #1C1C1C; /* Optionally change the background */
+  color: #FFFFFF; /* Optionally change the text color */
 }
