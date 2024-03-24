@@ -55,24 +55,25 @@ const StepTwo = ({ handleChange, handleCheckboxChange, professionalRoles, numCom
                     className={styles.inputField}
                 />
             </div>
-            <label className={styles.fileUploadLabel}>Add VSL - About me</label>
-            <div className={styles.fileUploadContainer}>
+            {/*<label className={styles.fileUploadLabel}>Add VSL - About me</label>*/}
+            {/*<div className={styles.fileUploadContainer}>
                 <input
                     ref={fileInputRef}
                     type="file"
                     onChange={handleFileUpload}
                     className={styles.fileInput}
-                    style={{ display: 'none' }} // Hide the input element
+                    style={{display: 'none'}} // Hide the input element
                 />
                 <p className={styles.dragDropText}>Drag and drop files here</p>
-                <p style={{marginBottom:20, marginTop:20}}>OR</p>
+                <p style={{marginBottom: 20, marginTop: 20}}>OR</p>
                 <button
                     onClick={handleBrowseFilesClick}
                     className={styles.browseFilesButton}
                     type="button" // Make sure this is a button, not a submit input
                 >
-                    Browse Files</button>
-            </div>
+                    Browse Files
+                </button>
+            </div>*/}
 
             <div className={styles.inputGroup}>
                 <label htmlFor="amountClosed">Amount Closed</label>
@@ -94,8 +95,8 @@ const StepTwo = ({ handleChange, handleCheckboxChange, professionalRoles, numCom
             </div>
 
 
-            <label className={styles.fileUploadLabel}>Work Experience</label>
-            {workExperiences.map((experience, index) => (
+            {/*<label className={styles.fileUploadLabel}>Work Experience</label>*/}
+            {/*workExperiences.map((experience, index) => (
                 <div key={index} className={styles.workExperienceBlock}>
                     {workExperiences.length > 1 && (
                         <button
@@ -141,9 +142,9 @@ const StepTwo = ({ handleChange, handleCheckboxChange, professionalRoles, numCom
                         />
                     </div>
                 </div>
-            ))}
-            <button className={styles.addButton} type="button" onClick={onAddWorkExperience}>
-            </button>
+            ))*/}
+            {/*<button className={styles.addButton} type="button" onClick={onAddWorkExperience}>*/}
+            {/*</button>*/}
         </div>
     );
 };

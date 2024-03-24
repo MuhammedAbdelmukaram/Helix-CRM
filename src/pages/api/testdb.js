@@ -1,5 +1,5 @@
-// pages/api/test-db.js
-import dbConnect from '../lib/dbConnect';
+// pages/api/testdb.js
+import dbConnect from '../../lib/dbConnect';
 
 export default async function handler(req, res) {
     try {

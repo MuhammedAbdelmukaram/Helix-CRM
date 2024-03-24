@@ -1,7 +1,7 @@
 "use client"
 import React, {useState} from 'react';
 import Image from 'next/image';
-import styles from './page.module.css';
+import styles from '@/app/page.module.css';
 import StepOne from "@/app/Steps/StepOne";
 import StepTwo from "@/app/Steps/StepTwo";
 import StepThree from "@/app/Steps/StepThree";
@@ -76,7 +76,7 @@ const StepForm = () => {
     ]);
 
     const [aboutMe, setAboutMe] = useState('');
-    const [aboutMeFile, setAboutMeFile] = useState(null);
+
     const [offerDetails, setOfferDetails] = useState([{
         offerName: '',
         company: '',
@@ -86,7 +86,7 @@ const StepForm = () => {
     }]);
 
 
-    const totalSteps = 5;
+    const totalSteps = 4;
 
     const languageOptions = ['English', 'Spanish', 'French',];
     const nicheOptions = ['Info-Products', 'TikTok Ads', 'UGC Creatives', 'Consulting', 'Landing Pages'];
@@ -104,48 +104,75 @@ const StepForm = () => {
         calls: '',
         professionalRoles: {}, // This will hold the roles selected
         aboutMe: '',
-        aboutMeFile: null,
+
     });
 
     const stepTitles = [
         'Set Up Your Profile',
         'Your Work Experience',
         'Enhance your profile',
-        'You are almost there..',
+        // 'You are almost there..',
         'Add your socials'
         // ... as many titles as there are steps
     ];
 
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const stepData = {
-            ...formData,
-            name, // Assuming you want to keep it directly accessible
+
+        const formattedProfessionalRoles = professionalRoles.map(role => ({
+            role: role.role,
+            selected: role.selected
+        }));
+
+
+        // Creating the fullFormData object by combining formData with the directly held state variables
+        const fullFormData = {
+            ...formData, // Spread operator to include all properties from formData
+            name, // Directly held state variables
             email,
             password,
             phoneNumber,
-            professionalRoles,
             aboutMe,
-            aboutMeFile,
-            workExperiences,
-            offerDetails,
             calendlyUrl,
             twitterUrl,
             linkedinUrl,
+            professionalRoles: formattedProfessionalRoles
+
         };
 
+        // Log the final data being sent for submission
+        console.log("Final submission data:", JSON.stringify(fullFormData, null, 2));
+
+        // Check if it's the final step
         if (currentStep < totalSteps - 1) {
-            console.log("Current Step Data:", stepData);
             setCurrentStep(currentStep + 1);
         } else {
-            console.log("Final Submission Data:", stepData);
-            setIsSubmitted(true);
-        }
+            // Submit the data to the server
+            try {
+                const response = await fetch('/api/submitForm', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(fullFormData),
+                });
 
-        // Update formData state with stepData to accumulate data from all steps
-        setFormData(stepData);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log("Submission Response:", data);
+                setIsSubmitted(true); // Signal successful submission
+            } catch (error) {
+                console.error('Submission error:', error);
+            }
+        }
     };
+
+
+
 
 
 
@@ -237,17 +264,17 @@ const StepForm = () => {
                     handleCheckboxChange={handleCheckboxChange}
                     handleFileChange={handleFileChange}
                 />
-            case 3: // Assuming StepThree is the third step
-                return (
-                    <StepThree
-                        offerDetails={offerDetails}
-                        handleOfferChange={handleOfferChange}
-                        handleFileUpload={handleFileChange} // If you are using file upload in StepThree
-                        addOffer={addOffer}
-                        removeOffer={removeOffer}
-                    />
-                );
-            case 4: // Assuming StepFour is the fourth step
+            // case 3: // Assuming StepThree is the third step
+            //     return (
+            //         <StepThree
+            //             offerDetails={offerDetails}
+            //             handleOfferChange={handleOfferChange}
+            //             handleFileUpload={handleFileChange} // If you are using file upload in StepThree
+            //             addOffer={addOffer}
+            //             removeOffer={removeOffer}
+            //         />
+            //     );
+            case 3: // Assuming StepFour is the fourth step
                 return (
                     <StepFour
                         handleChange={handleChange}
@@ -276,42 +303,8 @@ const StepForm = () => {
 
 
 
-    const handleSubmitToDB = async (event) => {
-        event.preventDefault();
 
-        // Create an instance of FormData
-        const formData = new FormData();
 
-        // Append fields to formData
-        formData.append('age', age);
-        formData.append('language', language);
-        formData.append('niche', niche);
-        formData.append('experience', experience);
-        formData.append('calls', calls);
-        formData.append('calendlyUrl', calendlyUrl);
-        formData.append('twitterUrl', twitterUrl);
-        formData.append('linkedinUrl', linkedinUrl);
-        formData.append('aboutMe', aboutMe);
-        formData.append('aboutMeFile', aboutMeFile);
-
-        // Append work experiences and professional roles as JSON strings
-        formData.append('workExperiences', JSON.stringify(workExperiences));
-        formData.append('professionalRoles', JSON.stringify(professionalRoles.map(role => ({ ...role, selected: role.selected ? 'true' : 'false' }))));
-        formData.append('offerDetails', JSON.stringify(offerDetails));
-
-        // Send formData to your API route
-        try {
-            const response = await fetch('/api/submitForm', {
-                method: 'POST',
-                body: formData,
-            });
-
-            const data = await response.json();
-            console.log(data);
-        } catch (error) {
-            console.error('Submission error:', error);
-        }
-    };
 
 
     return (
