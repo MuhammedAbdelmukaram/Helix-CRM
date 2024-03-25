@@ -82,6 +82,8 @@ const StepForm = () => {
         {role: 'Closer', selected: false},
         {role: 'Inbound Dialer', selected: false},
         {role: 'Outbound Dialer', selected: false},
+        {role: 'Full Cycle SDR', selected: false},
+        {role: 'Full Cycle Closer', selected: false},
         // ...add more roles as needed
     ]);
 
@@ -90,7 +92,8 @@ const StepForm = () => {
         {role: 'Closer', selected: false},
         {role: 'Inbound Dialer', selected: false},
         {role: 'Outbound Dialer', selected: false},
-        // Add more roles as needed
+        {role: 'Full Cycle SDR', selected: false},
+        {role: 'Full Cycle Closer', selected: false},
     ]);
 
     const [aboutMe, setAboutMe] = useState('');
@@ -110,13 +113,13 @@ const StepForm = () => {
     const languageOptions = ISO6391.getAllNames();
     const nicheOptions = ['B2C info product', 'B2B Infoproduct', 'B2B Tech', 'SaaS', 'Recruitment', 'Solar', 'Agencies Services', 'Door to Door', ' I\'m just getting started', 'Print Media',];
     const experienceOptions = ['Im just getting started', ' 0-1 years', '1-2 years', '2-3 years', '4-6 years', '6+ years'];
-    const callsOptions = ['0-5 calls', '6-10 calls', '10-15 calls', '16-20 calls',];
+    const callsOptions = ['1-3 calls', '3-5 calls', '5-8 calls', '8+ calls',];
 
     const [currentStep, setCurrentStep] = useState(0);
     const [formData, setFormData] = useState({
         age: '',
         language: [],
-        niche: '',
+        niche: [],
         amountClosed: '',
         numCompanies: '',
         experience: '',
@@ -335,6 +338,8 @@ const StepForm = () => {
                     setWorkHours={setWorkHours}
                     calls={formData.calls}
                     callsOptions={callsOptions}
+                    setWorkExperiences={setWorkExperiences}
+
                 />
             // case 3: // Assuming StepThree is the third step
             //     return (

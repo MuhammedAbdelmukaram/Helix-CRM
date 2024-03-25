@@ -20,52 +20,65 @@ const StepTwo = ({
                      onAddWorkExperience,
                      onRemoveWorkExperience,
                      callsOptions,
-                     calls
+                     calls,
+                     setWorkExperiences
                  }) => {
 
     const fileInputRef = useRef();
 
+    const handleCurrentWorkCheckboxChange = (index, event) => {
+        const updatedExperiences = [...workExperiences];
+        if (event.target.checked) {
+            updatedExperiences[index].endDate = 'Present';
+        } else {
+            // Optionally clear the endDate or set it to a default value
+            updatedExperiences[index].endDate = '';
+        }
+        setWorkExperiences(updatedExperiences);
+    };
+
 
     const timezoneOptions = [
-        {value: "UTC-12", label: "UTC-12:00 Baker Island (U.S.)"},
-        {value: "UTC-11", label: "UTC-11:00 American Samoa"},
-        {value: "UTC-10", label: "UTC-10:00 Hawaii (U.S.)"},
-        {value: "UTC-9:30", label: "UTC-9:30 Marquesas Islands (French Polynesia)"},
-        {value: "UTC-9", label: "UTC-9:00 Alaska (U.S.)"},
-        {value: "UTC-8", label: "UTC-8:00 Pacific Time (U.S. and Canada)"},
-        {value: "UTC-7", label: "UTC-7:00 Mountain Time (U.S. and Canada)"},
-        {value: "UTC-6", label: "UTC-6:00 Central Time (U.S. and Canada), Mexico City"},
-        {value: "UTC-5", label: "UTC-5:00 Eastern Time (U.S. and Canada), Lima (Peru)"},
-        {value: "UTC-4", label: "UTC-4:00 Atlantic Time (Canada), Caracas (Venezuela)"},
-        {value: "UTC-3:30", label: "UTC-3:30 Newfoundland and Labrador (Canada)"},
-        {value: "UTC-3", label: "UTC-3:00 Buenos Aires (Argentina), Montevideo (Uruguay)"},
-        {value: "UTC-2", label: "UTC-2:00 South Georgia/South Sandwich Islands"},
-        {value: "UTC-1", label: "UTC-1:00 Azores (Portugal), Cape Verde"},
-        {value: "UTC+0", label: "UTC+0:00 Greenwich Mean Time (GMT), Reykjavik (Iceland)"},
-        {value: "UTC+1", label: "UTC+1:00 Central European Time (CET), Lagos (Nigeria)"},
-        {value: "UTC+2", label: "UTC+2:00 Eastern European Time (EET), Cairo (Egypt)"},
-        {value: "UTC+3", label: "UTC+3:00 Moscow Time (Russia), Nairobi (Kenya)"},
-        {value: "UTC+3:30", label: "UTC+3:30 Tehran (Iran)"},
-        {value: "UTC+4", label: "UTC+4:00 Dubai (UAE), Baku (Azerbaijan)"},
-        {value: "UTC+4:30", label: "UTC+4:30 Kabul (Afghanistan)"},
-        {value: "UTC+5", label: "UTC+5:00 Tashkent (Uzbekistan), Karachi (Pakistan)"},
-        {value: "UTC+5:30", label: "UTC+5:30 Indian Standard Time (India), Colombo (Sri Lanka)"},
-        {value: "UTC+5:45", label: "UTC+5:45 Kathmandu (Nepal)"},
-        {value: "UTC+6", label: "UTC+6:00 Almaty (Kazakhstan), Dhaka (Bangladesh)"},
-        {value: "UTC+6:30", label: "UTC+6:30 Yangon (Myanmar)"},
-        {value: "UTC+7", label: "UTC+7:00 Bangkok (Thailand), Hanoi (Vietnam), Jakarta (Indonesia)"},
-        {value: "UTC+8", label: "UTC+8:00 Beijing (China), Perth (Australia), Singapore"},
-        {value: "UTC+8:45", label: "UTC+8:45 Eucla (Australia)"},
-        {value: "UTC+9", label: "UTC+9:00 Tokyo (Japan), Seoul (South Korea)"},
-        {value: "UTC+9:30", label: "UTC+9:30 Central Australia"},
-        {value: "UTC+10", label: "UTC+10:00 Eastern Australia, Port Moresby (Papua New Guinea)"},
-        {value: "UTC+10:30", label: "UTC+10:30 Lord Howe Island (Australia)"},
-        {value: "UTC+11", label: "UTC+11:00 Solomon Islands, Vanuatu"},
-        {value: "UTC+12", label: "UTC+12:00 Auckland (New Zealand), Suva (Fiji)"},
-        {value: "UTC+12:45", label: "UTC+12:45 Chatham Islands (New Zealand)"},
-        {value: "UTC+13", label: "UTC+13:00 Samoa, Tonga"},
-        {value: "UTC+14", label: "UTC+14:00 Line Islands (Kiribati)"}
+        {value: "UTC-12", label: "UTC-12"},
+        {value: "UTC-11", label: "UTC-11"},
+        {value: "UTC-10", label: "UTC-10"},
+        {value: "UTC-9:30", label: "UTC-9:30"},
+        {value: "UTC-9", label: "UTC-9"},
+        {value: "UTC-8", label: "UTC-8"},
+        {value: "UTC-7", label: "UTC-7"},
+        {value: "UTC-6", label: "UTC-6"},
+        {value: "UTC-5", label: "UTC-5"},
+        {value: "UTC-4", label: "UTC-4"},
+        {value: "UTC-3:30", label: "UTC-3:30"},
+        {value: "UTC-3", label: "UTC-3"},
+        {value: "UTC-2", label: "UTC-2"},
+        {value: "UTC-1", label: "UTC-1"},
+        {value: "UTC+0", label: "UTC+0"},
+        {value: "UTC+1", label: "UTC+1"},
+        {value: "UTC+2", label: "UTC+2"},
+        {value: "UTC+3", label: "UTC+3"},
+        {value: "UTC+3:30", label: "UTC+3:30"},
+        {value: "UTC+4", label: "UTC+4"},
+        {value: "UTC+4:30", label: "UTC+4:30"},
+        {value: "UTC+5", label: "UTC+5"},
+        {value: "UTC+5:30", label: "UTC+5:30"},
+        {value: "UTC+5:45", label: "UTC+5:45"},
+        {value: "UTC+6", label: "UTC+6"},
+        {value: "UTC+6:30", label: "UTC+6:30"},
+        {value: "UTC+7", label: "UTC+7"},
+        {value: "UTC+8", label: "UTC+8"},
+        {value: "UTC+8:45", label: "UTC+8:45"},
+        {value: "UTC+9", label: "UTC+9"},
+        {value: "UTC+9:30", label: "UTC+9:30"},
+        {value: "UTC+10", label: "UTC+10"},
+        {value: "UTC+10:30", label: "UTC+10:30"},
+        {value: "UTC+11", label: "UTC+11"},
+        {value: "UTC+12", label: "UTC+12"},
+        {value: "UTC+12:45", label: "UTC+12:45"},
+        {value: "UTC+13", label: "UTC+13"},
+        {value: "UTC+14", label: "UTC+14"}
     ];
+
 
     const handleBrowseFilesClick = (e) => {
         e.preventDefault(); // Prevent form submission
@@ -124,8 +137,9 @@ const StepTwo = ({
                 </select>
             </div>
 
-            <div className={styles.checkboxGroup}>
-                <p style={{marginBottom: "0.8rem", fontSize: 12, fontWeight: "bold"}}>What role do you have the most sales experience in?</p>
+            <div className={styles.checkboxGroupFirst}>
+                <p style={{marginBottom: "0.8rem", fontSize: 12, fontWeight: "bold"}}>What role do you have the most
+                    sales experience in?</p>
                 {professionalRoles.map((roleObj, index) => (
                     <label className={styles.checkboxLabel} key={index}>
                         <input
@@ -265,12 +279,26 @@ const StepTwo = ({
                         <label htmlFor={`endDate-${index}`} className={styles.inputLabel}>End date:</label>
                         <input
                             id={`endDate-${index}`}
-                            type="month" // Change type to 'month'
+                            type="month"
                             name="endDate"
-                            value={experience.endDate}
+                            value={experience.endDate !== 'Present' ? experience.endDate : ''}
                             onChange={(e) => onWorkExperienceChange(index, e)}
                             className={styles.inputField}
+                            disabled={experience.endDate === 'Present'}
                         />
+                    </div>
+                    <div className={styles.inputRow}>
+                        <label className={styles.checkboxLabelWorkingPresent}>
+
+                            Currently working here
+                            <input
+                                type="checkbox"
+                                name="isCurrent"
+                                checked={experience.endDate === 'Present'}
+                                onChange={(e) => handleCurrentWorkCheckboxChange(index, e)}
+                                className={styles.checkboxWorkingHere}
+                            />
+                        </label>
                     </div>
                 </div>
             ))}

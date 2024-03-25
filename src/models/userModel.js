@@ -26,7 +26,7 @@ const UserProfileSchema = new mongoose.Schema({
     numCompanies: String, // Consider using Number type if these will always be numeric
     age: String, // Consider using Number type if these will always be numeric
     language: [String],
-    niche: String,
+    niche: [String],
     experience: String,
     calls: String, // Consider using Number type if these will always be numeric
     calendlyUrl: String,
