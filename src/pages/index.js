@@ -12,6 +12,8 @@ import ISO6391 from 'iso-639-1';
 
 const StepForm = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -199,6 +201,7 @@ const StepForm = () => {
             setCurrentStep(currentStep + 1);
         } else {
             // Submit the data to the server
+            setIsSubmitting(true);
             try {
                 const response = await fetch('/api/submitForm', {
                     method: 'POST',
@@ -218,6 +221,7 @@ const StepForm = () => {
             } catch (error) {
                 console.error('Submission error:', error);
             }
+
         }
     };
 
@@ -423,8 +427,10 @@ const StepForm = () => {
                     <form onSubmit={handleSubmit} className={styles.form}>
                         {renderStep()}
                         <div className={styles.submitGroup}>
-                            <button type="submit" className={styles.nextButton}>
-                                {currentStep === totalSteps - 1 ? 'Submit' : 'Next'}
+                            <button type="submit" className={styles.nextButton} disabled={isSubmitting}>
+                                {isSubmitting ? (
+                                    <span>Submitting...</span> // You can replace this with a spinner component or image if you prefer
+                                ) : currentStep === totalSteps - 1 ? 'Submit' : 'Next'}
                             </button>
                         </div>
                     </form>
