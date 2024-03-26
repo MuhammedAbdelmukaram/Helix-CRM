@@ -1,0 +1,139 @@
+/* Profile.module.css */
+.profileContainer {
+    padding-top: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #242424;
+    height: 100vh; /* Adjust based on your layout */
+    color: white;
+}
+
+.imageText{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+.leftSideProfile{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.rightSideProfile{
+    display: flex;
+    gap:30px;
+
+}
+
+.buttonsContainer {
+    display: flex;
+    justify-content: flex-start; /* Aligns items to the start, adjust as needed */
+    gap: 10px; /* Space between buttons */
+    margin-top: 10px; /* Spacing above the buttons, adjust as needed */
+}
+
+.profileButton {
+    padding: 13px 36px; /* Adjust padding as needed */
+    background-color: #E50914; /* Example background color */
+    color: white; /* Text color */
+    border: none;
+    cursor: pointer;
+    border-radius: 4px; /* Optional: for rounded corners */
+    /* Add more styles as per your design */
+}
+
+.profileButton:hover {
+    background-color: #b81d24; /* Change to desired hover color */
+}
+
+.profileButtonTwo {
+    padding: 13px 36px; /* Adjust padding as needed */
+    background-color: #F5F5F1; /* Example background color */
+    color: #101828; /* Text color */
+    border: none;
+    cursor: pointer;
+    border-radius: 4px; /* Optional: for rounded corners */
+    /* Add more styles as per your design */
+}
+
+.profileButtonTwo:hover {
+    background-color: #ecece9; /* Change to desired hover color */
+}
+
+.introSection {
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    width: max-content;
+    border-radius: 4px;
+    background-color:#373737 ;
+    padding: 36px;
+    text-align: center;
+    margin-bottom: 40px; /* Adjust based on your layout */
+}
+
+.videoPreview {
+    position: relative;
+    width: 60%; /* Adjust based on your design */
+    /* This should match the aspect ratio of your video */
+    cursor: pointer;
+    overflow: hidden; /* To ensure the video does not exceed the container */
+}
+
+.videoElement {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This will ensure the video covers the area nicely, change to 'contain' if you need to see the whole video */
+}
+
+
+.playButton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px; /* Adjust size as needed */
+    height: 50px; /* Adjust size as needed */
+    border-radius: 50%; /* Creates a circular button */
+    background-color: #ff6a00; /* Adjust based on your design */
+    border: none;
+    cursor: pointer;
+}
+
+.actionButtons {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Adjust based on your layout */
+}
+
+.bookCallButton, .viewSalesButton {
+    background-color: #101828; /* Adjust based on your design */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-transform: uppercase; /* Style as needed */
+}
+
+/* Add this if not present for the stats section alignment */
+.statsSection {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    gap: 40px; /* Adjust based on your design */
+    margin-top: 20px;
+    background-color: #373737;
+    padding:20px 40px
+}
+
+.stat h2 {
+    margin: 0;
+    text-align: center;
+}
+
+.stat p {
+    text-align: center;
+    font-size: 14px;
+}

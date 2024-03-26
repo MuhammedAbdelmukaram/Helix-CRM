@@ -2,15 +2,17 @@
 import React, {useState} from 'react';
 import Image from 'next/image';
 import styles from '@/app/page.module.css';
-import StepOne from "@/app/Steps/StepOne";
-import StepTwo from "@/app/Steps/StepTwo";
-import StepThree from "@/app/Steps/StepThree";
-import StepFour from "@/app/Steps/StepFour";
-import StepZero from "@/app/Steps/StepZero"; // Make sure to create this CSS module
+import StepOne from "@/app/components/Steps/StepOne";
+import StepTwo from "@/app/components/Steps/StepTwo";
+import StepThree from "@/app/components/Steps/StepThree";
+import StepFour from "@/app/components/Steps/StepFour";
+import StepZero from "@/app/components/Steps/StepZero"; // Make sure to create this CSS module
 import ISO6391 from 'iso-639-1';
 
 const StepForm = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -194,13 +196,34 @@ const StepForm = () => {
             setCurrentStep(currentStep + 1);
         } else {
             // Submit the data to the server
+            setIsSubmitting(true);
             try {
                 const response = await fetch('/api/submitForm', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(fullFormData),
+                    body: JSON.stringify({
+                        ...formData,
+                        name,
+                        email,
+                        password,
+                        phoneNumber,
+                        aboutMe,
+                        calendlyUrl,
+                        twitterUrl,
+                        linkedinUrl,
+                        instagramUrl,
+                        professionalRoles: professionalRoles.map(role => ({
+                            role: role.role,
+                            selected: role.selected
+                        })),
+                        desiredProfessionalRoles: desiredProfessionalRoles.map(role => ({
+                            role: role.role,
+                            selected: role.selected
+                        })),
+                        workExperiences
+                    }),
                 });
 
                 if (!response.ok) {
@@ -212,6 +235,8 @@ const StepForm = () => {
                 setIsSubmitted(true); // Signal successful submission
             } catch (error) {
                 console.error('Submission error:', error);
+            } finally {
+                setIsSubmitting(false); // Ensure this is reset in finally block
             }
         }
     };
@@ -401,7 +426,7 @@ const StepForm = () => {
                     <form onSubmit={handleSubmit} className={styles.form}>
                         {renderStep()}
                         <div className={styles.submitGroup}>
-                            <button type="submit" className={styles.nextButton}>
+                            <button type="submit" className={styles.nextButton} disabled={isSubmitting}>
                                 {currentStep === totalSteps - 1 ? 'Submit' : 'Next'}
                             </button>
                         </div>
