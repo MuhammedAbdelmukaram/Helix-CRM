@@ -96,6 +96,7 @@ const StepTwo = ({
                     value={timezone}
                     onChange={handleChange} // Assuming handleChange can handle generic changes
                     className="selected-option"
+                    required={true}
                 >
                     <option value="" disabled>Select your timezone</option>
                     {timezoneOptions.map(option => (
@@ -113,6 +114,7 @@ const StepTwo = ({
                     value={workHours}
                     onChange={handleChange}
                     className="selected-option"
+                    required={true}
                 >
                     <option value="" disabled>Select hours</option>
                     <option value="1h-3h">1h-3h</option>
@@ -129,6 +131,7 @@ const StepTwo = ({
                     name="calls"
                     value={calls}
                     onChange={handleChange}
+                    required={true}
                 >
                     <option value="" className="select-placeholder">Select calls range</option>
                     {callsOptions.map((call) => (

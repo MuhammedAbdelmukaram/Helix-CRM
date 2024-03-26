@@ -9,6 +9,7 @@ import StepFour from "@/app/Steps/StepFour";
 import StepZero from "@/app/Steps/StepZero"; // Make sure to create this CSS module
 import ISO6391 from 'iso-639-1';
 
+
 const StepForm = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -84,6 +85,8 @@ const StepForm = () => {
         {role: 'Outbound Dialer', selected: false},
         {role: 'Full Cycle SDR', selected: false},
         {role: 'Full Cycle Closer', selected: false},
+        {role: 'Im just getting started', selected: false},
+
         // ...add more roles as needed
     ]);
 
@@ -111,7 +114,7 @@ const StepForm = () => {
 
 
     const languageOptions = ISO6391.getAllNames();
-    const nicheOptions = ['B2C info product', 'B2B Infoproduct', 'B2B Tech', 'SaaS', 'Recruitment', 'Solar', 'Agencies Services', 'Door to Door', ' I\'m just getting started', 'Print Media',];
+    const nicheOptions = ['B2C info product', 'B2B Infoproduct', 'B2B Tech', 'SaaS', 'Recruitment', 'Solar', 'Agencies Services', 'Door to Door',  'Print Media', ' I\'m just getting started', 'Other'];
     const experienceOptions = ['Im just getting started', ' 0-1 years', '1-2 years', '2-3 years', '4-6 years', '6+ years'];
     const callsOptions = ['1-3 calls', '3-5 calls', '5-8 calls', '8+ calls',];
 
@@ -178,6 +181,8 @@ const StepForm = () => {
             aboutMe,
             calendlyUrl,
             twitterUrl,
+            timezone,
+            workHours,
             linkedinUrl,
             instagramUrl,
             professionalRoles: formattedProfessionalRoles,
@@ -250,6 +255,12 @@ const StepForm = () => {
                 break;
             case 'phoneNumber':
                 setPhoneNumber(value);
+                break;
+            case 'timezone':
+                setTimezone(value);
+                break;
+            case 'workHours':
+                setWorkHours(value);
                 break;
             case 'name':
                 // Assuming you have a state hook for name
@@ -387,6 +398,17 @@ const StepForm = () => {
 
     return (
         <div className={styles.container}>
+            <div>
+                <div style={{
+                    position: 'fixed',
+                    top: '0',
+                    left: '0',
+                    padding: '10px' // Adjust padding to suit your layout
+                }}>
+                    <Image src="/DFLOGO.png" alt="Logo" width={200} height={58} />
+                </div>
+                {/* Rest of your component */}
+            </div>
             {isSubmitted ? (
                 <div className={styles.submissionMessageContainer}>
                     <h1 className={styles.submissionMessageTitle}>Thanks for your submission</h1>

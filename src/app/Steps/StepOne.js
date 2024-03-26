@@ -46,11 +46,20 @@ const StepOne = ({
     // Update to handle multiple niches
     const handleNicheSelectChange = (selectedOptions) => {
         const selectedNiches = selectedOptions.map(option => option.value);
+        // Check if 'Other' is one of the selected niches
+        const hasOther = selectedNiches.includes('Other'); // Assuming the value for 'Other' is 'other'
+        setIsOtherNiche(hasOther);
+
+        if (!hasOther) {
+            setCustomNiche(''); // Reset custom niche if 'Other' is not selected
+        }
+
         setFormData(prevState => ({
             ...prevState,
             niche: selectedNiches
         }));
     };
+
 
 
 
@@ -104,6 +113,7 @@ const StepOne = ({
                     placeholder="Your age"
                     value={age}
                     onChange={handleChange}
+                    required={true}
                 />
             </div>
 
@@ -115,6 +125,7 @@ const StepOne = ({
                     value={gender} // Ensure this is initialized to '' in your component's state
                     onChange={handleChange}
                     className="selected-option"
+                    required={true}
                 >
                     {/* Removed the selected attribute from here */}
                     <option value="" disabled>Select Gender</option>
@@ -135,6 +146,7 @@ const StepOne = ({
                     value={country}
                     onChange={handleChange}
                     className={country ? "selected-option" : "select-placeholder"}
+                    required={true}
                 >
                     <option value="" disabled>Select Country</option>
                     {countries.map(({ isoCode, name }) => (
@@ -252,6 +264,7 @@ const StepOne = ({
                     name="experience"
                     value={experience}
                     onChange={handleChange}
+                    required={true}
                 >
                     <option value="" className="select-placeholder">Select years</option>
                     {experienceOptions.map((exp) => (
@@ -362,6 +375,7 @@ const StepOne = ({
                     value={amountClosed}
                     onChange={handleChange}
                     className={amountClosed ? "selected-option" : "select-placeholder"}
+                    required={true}
                 >
                     <option value="" disabled>Select Amount Closed</option>
                     <option value="0-100k">0 - $100k</option>
