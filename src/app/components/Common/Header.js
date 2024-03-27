@@ -25,7 +25,7 @@ const Header = () => {
         <Link href={"/dashboard"} title="Dashboard" className={styles.button}>
           Dashboard
         </Link>
-        <Link href={"/myjobs"} title="myjobs" className={styles.button}>
+        <Link href={"/my-jobs"} title="myjobs" className={styles.button}>
           My Jobs
         </Link>
         <Link href={"/messages"} title="messages" className={styles.button}>
