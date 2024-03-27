@@ -9,6 +9,14 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 
+  --color-primary: #101828; /* Primary blue */
+  --color-secondary: #6c757d; /* Secondary gray */
+  --color-accent: #28a745; /* Green for success messages, buttons, etc. */
+  --color-background: #2b2b2c; /* White background */
+  --color-text: #f3f3f3; /* Primary text color */
+  --color-text-secondary: #6c757d; /* Secondary text color */
+  --color-border: #dee2e6; /* Border color */
+
   --primary-glow: conic-gradient(
     from 180deg at 50% 50%,
     #16abff33 0deg,

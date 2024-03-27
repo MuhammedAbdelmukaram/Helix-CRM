@@ -2,11 +2,11 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import styles from "@/app/page.module.css";
-import StepOne from "@/app/Steps/StepOne";
-import StepTwo from "@/app/Steps/StepTwo";
-import StepThree from "@/app/Steps/StepThree";
-import StepFour from "@/app/Steps/StepFour";
-import StepZero from "@/app/Steps/StepZero"; // Make sure to create this CSS module
+import StepOne from "@/app/components/Steps/StepOne";
+import StepTwo from "@/app/components/Steps/StepTwo";
+import StepThree from "@/app/components/Steps/StepThree";
+import StepFour from "@/app/components/Steps/StepFour";
+import StepZero from "@/app/components/Steps/StepZero"; // Make sure to create this CSS module
 import ISO6391 from "iso-639-1";
 
 const StepForm = () => {
@@ -248,7 +248,27 @@ const StepForm = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(fullFormData),
+          body: JSON.stringify({
+            ...formData,
+            name,
+            email,
+            password,
+            phoneNumber,
+            aboutMe,
+            calendlyUrl,
+            twitterUrl,
+            linkedinUrl,
+            instagramUrl,
+            professionalRoles: professionalRoles.map((role) => ({
+              role: role.role,
+              selected: role.selected,
+            })),
+            desiredProfessionalRoles: desiredProfessionalRoles.map((role) => ({
+              role: role.role,
+              selected: role.selected,
+            })),
+            workExperiences,
+          }),
         });
 
         if (!response.ok) {
@@ -260,6 +280,8 @@ const StepForm = () => {
         setIsSubmitted(true); // Signal successful submission
       } catch (error) {
         console.error("Submission error:", error);
+      } finally {
+        setIsSubmitting(false); // Ensure this is reset in finally block
       }
     }
   };
@@ -426,19 +448,6 @@ const StepForm = () => {
 
   return (
     <div className={styles.container}>
-      <div>
-        <div
-          style={{
-            position: "fixed",
-            top: "0",
-            left: "0",
-            padding: "10px", // Adjust padding to suit your layout
-          }}
-        >
-          <Image src="/DFLOGO.png" alt="Logo" width={200} height={58} />
-        </div>
-        {/* Rest of your component */}
-      </div>
       {isSubmitted ? (
         <div className={styles.submissionMessageContainer}>
           <h1 className={styles.submissionMessageTitle}>
@@ -462,13 +471,7 @@ const StepForm = () => {
                 className={styles.nextButton}
                 disabled={isSubmitting}
               >
-                {isSubmitting ? (
-                  <span>Submitting...</span> // You can replace this with a spinner component or image if you prefer
-                ) : currentStep === totalSteps - 1 ? (
-                  "Submit"
-                ) : (
-                  "Next"
-                )}
+                {currentStep === totalSteps - 1 ? "Submit" : "Next"}
               </button>
             </div>
           </form>

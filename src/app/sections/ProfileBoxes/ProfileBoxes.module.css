@@ -1,0 +1,14 @@
+.profileBoxes {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    background-color: #343434; /* Or any preferred background */
+    padding: 30px 20px 30px 30px;
+    width: fit-content;
+    margin-top: 90px;
+    margin-left: 140px;
+    height: fit-content;
+    color: white;
+    border-radius: 8px; /* Optional, for styled corners */
+     /* Or your preferred font */
+}
