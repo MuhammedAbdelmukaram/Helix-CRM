@@ -1,6 +1,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 
 import styles from "./Header.module.css";
 import VerticalLine from "./VerticalLine.js"; // You will create this CSS module file
@@ -11,39 +12,28 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <div className={styles.leftSection}>
-        <Image
-          src="/DFLOGO.png" // Replace with your logo path
-          alt="Logo"
-          width={95}
-          height={28}
-          onClick={() => router.push("/dashboard")}
-        />
+        <Link href={"/dashboard"} title="Dashboard">
+          <Image
+            src="/DFLOGO.png" // Replace with your logo path
+            alt="Logo"
+            width={95}
+            height={28}
+          />
+        </Link>
       </div>
       <div className={styles.centerSection}>
-        <button
-          className={styles.button}
-          onClick={() => router.push("/dashboard")}
-        >
+        <Link href={"/dashboard"} title="Dashboard" className={styles.button}>
           Dashboard
-        </button>
-        <button
-          className={styles.button}
-          onClick={() => router.push("/myjobs")}
-        >
+        </Link>
+        <Link href={"/myjobs"} title="myjobs" className={styles.button}>
           My Jobs
-        </button>
-        <button
-          className={styles.button}
-          onClick={() => router.push("/messages")}
-        >
+        </Link>
+        <Link href={"/messages"} title="messages" className={styles.button}>
           Messages
-        </button>
-        <button
-          className={styles.button}
-          onClick={() => router.push("/bookmarks")}
-        >
+        </Link>
+        <Link href={"/bookmarks"} title="bookmarks" className={styles.button}>
           Bookmarks
-        </button>
+        </Link>
       </div>
 
       <div className={styles.rightSection}>
