@@ -11,6 +11,7 @@ import ISO6391 from "iso-639-1";
 
 const StepForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -104,6 +105,8 @@ const StepForm = () => {
     { role: "Outbound Dialer", selected: false },
     { role: "Full Cycle SDR", selected: false },
     { role: "Full Cycle Closer", selected: false },
+    { role: "Im just getting started", selected: false },
+
     // ...add more roles as needed
   ]);
 
@@ -140,8 +143,9 @@ const StepForm = () => {
     "Solar",
     "Agencies Services",
     "Door to Door",
-    " I'm just getting started",
     "Print Media",
+    " I'm just getting started",
+    "Other",
   ];
   const experienceOptions = [
     "Im just getting started",
@@ -217,6 +221,8 @@ const StepForm = () => {
       aboutMe,
       calendlyUrl,
       twitterUrl,
+      timezone,
+      workHours,
       linkedinUrl,
       instagramUrl,
       professionalRoles: formattedProfessionalRoles,
@@ -235,6 +241,7 @@ const StepForm = () => {
       setCurrentStep(currentStep + 1);
     } else {
       // Submit the data to the server
+      setIsSubmitting(true);
       try {
         const response = await fetch("/api/submitForm", {
           method: "POST",
@@ -284,6 +291,12 @@ const StepForm = () => {
         break;
       case "phoneNumber":
         setPhoneNumber(value);
+        break;
+      case "timezone":
+        setTimezone(value);
+        break;
+      case "workHours":
+        setWorkHours(value);
         break;
       case "name":
         // Assuming you have a state hook for name
@@ -413,6 +426,19 @@ const StepForm = () => {
 
   return (
     <div className={styles.container}>
+      <div>
+        <div
+          style={{
+            position: "fixed",
+            top: "0",
+            left: "0",
+            padding: "10px", // Adjust padding to suit your layout
+          }}
+        >
+          <Image src="/DFLOGO.png" alt="Logo" width={200} height={58} />
+        </div>
+        {/* Rest of your component */}
+      </div>
       {isSubmitted ? (
         <div className={styles.submissionMessageContainer}>
           <h1 className={styles.submissionMessageTitle}>
@@ -431,8 +457,18 @@ const StepForm = () => {
           <form onSubmit={handleSubmit} className={styles.form}>
             {renderStep()}
             <div className={styles.submitGroup}>
-              <button type="submit" className={styles.nextButton}>
-                {currentStep === totalSteps - 1 ? "Submit" : "Next"}
+              <button
+                type="submit"
+                className={styles.nextButton}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <span>Submitting...</span> // You can replace this with a spinner component or image if you prefer
+                ) : currentStep === totalSteps - 1 ? (
+                  "Submit"
+                ) : (
+                  "Next"
+                )}
               </button>
             </div>
           </form>
