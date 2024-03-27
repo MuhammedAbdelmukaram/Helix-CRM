@@ -1,11 +1,11 @@
 "use client";
 import React, { useRef, useState } from "react";
 import Header from "@/app/components/Common/Header";
-import styles from "../profile.module.css";
+import styles from "./Profile.module.css";
 import VerticalLine from "@/app/components/Common/VerticalLine"; // Make sure you have this CSS file
 import Image from "next/image";
 
-const Profile = ({ params }) => {
+const Profile = () => {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -48,9 +48,7 @@ const Profile = ({ params }) => {
             }}
           >
             <div className={styles.leftSideProfile}>
-              <p style={{ fontSize: 24, textAlign: "left" }}>
-                Name Surname {params.id}
-              </p>
+              <p style={{ fontSize: 24, textAlign: "left" }}>Name Surname</p>
               <p style={{ textAlign: "left", fontSize: 12 }}>Setter, Closer</p>
 
               <div className={styles.imageText}>
