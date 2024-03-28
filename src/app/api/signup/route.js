@@ -1,14 +1,16 @@
+import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 
 import dbConnect from "@/lib/dbConnect";
 
 import UserProfile from "@/models/userModel"; // Adjusted for clarity
 
-export async function POST(req, res) {
+export async function POST(request) {
   await dbConnect();
 
   try {
-    const { password, ...rest } = req.body;
+    const { password, ...rest } = request.body;
+    console.log("api", password, ...rest);
 
     // Hash password
     const saltRounds = 10;
@@ -20,8 +22,11 @@ export async function POST(req, res) {
       password: hashedPassword, // Store the hashed password
     });
 
-    res.status(201).json({ success: true, data: entry });
+    return NextResponse.json({ success: true, data: entry });
   } catch (error) {
-    res.status(400).json({ success: false, error: error.message });
+    return NextResponse.json({
+      success: false,
+      error: error.message,
+    });
   }
 }
