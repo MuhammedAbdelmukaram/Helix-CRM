@@ -10,7 +10,6 @@ export async function POST(request) {
 
   try {
     const { password, ...rest } = request.body;
-    console.log("api", password, ...rest);
 
     // Hash password
     const saltRounds = 10;
