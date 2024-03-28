@@ -1,4 +1,5 @@
 import React from "react";
+
 import Header from "@/app/components/Common/Header";
 import Filters from "@/app/sections/Filters/Filters";
 import ProfileBoxes from "@/app/sections/ProfileBoxes/ProfileBoxes";

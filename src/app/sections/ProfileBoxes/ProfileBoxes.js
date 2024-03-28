@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import styles from "./ProfileBoxes.module.css";
+
 import ProfileCard from "../../components/Common/ProfileCard.js"; // Ensure this is the correct path
+import styles from "./ProfileBoxes.module.css";
 
 // Mocked array of profiles for the example, replace with your actual data source
 const profiles = new Array(24).fill(null).map((_, index) => ({
