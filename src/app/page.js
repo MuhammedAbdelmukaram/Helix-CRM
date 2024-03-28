@@ -267,6 +267,8 @@ export default function Page() {
             twitterUrl,
             linkedinUrl,
             instagramUrl,
+            workHours,
+            timezone,
             professionalRoles: professionalRoles.map((role) => ({
               role: role.role,
               selected: role.selected,
