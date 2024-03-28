@@ -92,7 +92,7 @@ const StepTwo = ({
             </div>
 
             <div className={styles.inputGroup}>
-                <label htmlFor="calls">How many calls over day can you take?</label>
+                <label htmlFor="calls">How many calls a day can you take?</label>
                 <select
                     id="calls"
                     name="calls"
