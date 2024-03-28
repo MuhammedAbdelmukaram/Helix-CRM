@@ -279,11 +279,10 @@ export default function Page() {
           }),
         });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
         const data = await response.json();
+        if (!data.success) {
+          throw new Error(`HTTP error! status: ${data.status}`);
+        }
         console.log("Submission Response:", data);
         setIsSubmitted(true); // Signal successful submission
       } catch (error) {
