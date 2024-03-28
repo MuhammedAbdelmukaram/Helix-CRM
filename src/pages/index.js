@@ -1,13 +1,16 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import styles from "@/app/page.module.css";
+import ISO6391 from "iso-639-1";
+
 import StepOne from "@/app/components/Steps/StepOne";
 import StepTwo from "@/app/components/Steps/StepTwo";
 import StepThree from "@/app/components/Steps/StepThree";
 import StepFour from "@/app/components/Steps/StepFour";
 import StepZero from "@/app/components/Steps/StepZero"; // Make sure to create this CSS module
-import ISO6391 from "iso-639-1";
+import Indicators from "@/app/components/signup/indicators";
+
+import styles from "@/app/page.module.css";
 
 const StepForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -136,7 +139,7 @@ const StepForm = () => {
   const languageOptions = ISO6391.getAllNames();
   const nicheOptions = [
     "B2C info product",
-    "B2B Infoproduct",
+    "B2B info product",
     "B2B Tech",
     "SaaS",
     "Recruitment",
@@ -144,12 +147,12 @@ const StepForm = () => {
     "Agencies Services",
     "Door to Door",
     "Print Media",
-    " I'm just getting started",
+    "I'm just getting started",
     "Other",
   ];
   const experienceOptions = [
-    "Im just getting started",
-    " 0-1 years",
+    "I'm just getting started",
+    "0-1 years",
     "1-2 years",
     "2-3 years",
     "4-6 years",
@@ -239,6 +242,10 @@ const StepForm = () => {
     // Check if it's the final step
     if (currentStep < totalSteps - 1) {
       setCurrentStep(currentStep + 1);
+      window?.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     } else {
       // Submit the data to the server
       setIsSubmitting(true);
@@ -355,97 +362,6 @@ const StepForm = () => {
     setAboutMeFile(event.target.files[0]);
   };
 
-  const renderStep = () => {
-    switch (currentStep) {
-      case 0:
-        return (
-          <StepZero
-            handleChange={handleChange}
-            phoneNumber={phoneNumber}
-            setPhoneNumber={setPhoneNumber}
-            onPasswordMatch={handlePasswordMatch}
-          />
-        );
-      case 1:
-        return (
-          <StepOne
-            age={formData.age}
-            language={formData.language}
-            niche={formData.niche}
-            experience={formData.experience}
-            setFormData={setFormData}
-            languageOptions={languageOptions}
-            calls={formData.calls}
-            city={formData.city}
-            gender={formData.gender}
-            country={formData.country}
-            handleChange={handleChange}
-            nicheOptions={nicheOptions}
-            amountClosed={formData.amountClosed}
-            experienceOptions={experienceOptions}
-          />
-        );
-      case 2:
-        return (
-          <StepTwo
-            professionalRoles={professionalRoles}
-            desiredProfessionalRoles={desiredProfessionalRoles}
-            aboutMe={aboutMe}
-            workExperiences={workExperiences}
-            numCompanies={formData.numCompanies}
-            amountClosed={formData.amountClosed}
-            onWorkExperienceChange={handleWorkExperienceChange}
-            onAddWorkExperience={addWorkExperience}
-            onRemoveWorkExperience={removeWorkExperience}
-            handleChange={handleChange}
-            handleCheckboxChange={handleCheckboxChange}
-            handleFileChange={handleFileChange}
-            timezone={timezone}
-            setTimezone={setTimezone}
-            workHours={workHours}
-            setWorkHours={setWorkHours}
-            calls={formData.calls}
-            callsOptions={callsOptions}
-            setWorkExperiences={setWorkExperiences}
-          />
-        );
-      // case 3: // Assuming StepThree is the third step
-      //     return (
-      //         <StepThree
-      //             offerDetails={offerDetails}
-      //             handleOfferChange={handleOfferChange}
-      //             handleFileUpload={handleFileChange} // If you are using file upload in StepThree
-      //             addOffer={addOffer}
-      //             removeOffer={removeOffer}
-      //         />
-      //     );
-      case 3: // Assuming StepFour is the fourth step
-        return (
-          <StepFour
-            handleChange={handleChange}
-            calendlyUrl={calendlyUrl}
-            twitterUrl={twitterUrl}
-            linkedinUrl={linkedinUrl}
-            instagramUrl={instagramUrl}
-          />
-        );
-      default:
-        return null;
-    }
-  };
-
-  // Function to render step indicators
-  const renderStepIndicators = () => {
-    return [...Array(totalSteps).keys()].map((step) => (
-      <div
-        key={step}
-        className={`${styles.stepIndicator} ${
-          step <= currentStep ? styles.activeStep : ""
-        }`}
-      />
-    ));
-  };
-
   return (
     <div className={styles.container}>
       {isSubmitted ? (
@@ -461,10 +377,64 @@ const StepForm = () => {
         </div>
       ) : (
         <>
-          <div className={styles.stepIndicators}>{renderStepIndicators()}</div>
+          <Indicators totalSteps={totalSteps} currentStep={currentStep} />
           <h1 className={styles.heading}>{stepTitles[currentStep]}</h1>
           <form onSubmit={handleSubmit} className={styles.form}>
-            {renderStep()}
+            {[0].includes(currentStep) ? (
+              <StepZero
+                handleChange={handleChange}
+                phoneNumber={phoneNumber}
+                setPhoneNumber={setPhoneNumber}
+                onPasswordMatch={handlePasswordMatch}
+              />
+            ) : [1].includes(currentStep) ? (
+              <StepOne
+                age={formData.age}
+                language={formData.language}
+                niche={formData.niche}
+                experience={formData.experience}
+                setFormData={setFormData}
+                languageOptions={languageOptions}
+                calls={formData.calls}
+                city={formData.city}
+                gender={formData.gender}
+                country={formData.country}
+                handleChange={handleChange}
+                nicheOptions={nicheOptions}
+                amountClosed={formData.amountClosed}
+                experienceOptions={experienceOptions}
+              />
+            ) : [2].includes(currentStep) ? (
+              <StepTwo
+                professionalRoles={professionalRoles}
+                desiredProfessionalRoles={desiredProfessionalRoles}
+                aboutMe={aboutMe}
+                workExperiences={workExperiences}
+                numCompanies={formData.numCompanies}
+                amountClosed={formData.amountClosed}
+                onWorkExperienceChange={handleWorkExperienceChange}
+                onAddWorkExperience={addWorkExperience}
+                onRemoveWorkExperience={removeWorkExperience}
+                handleChange={handleChange}
+                handleCheckboxChange={handleCheckboxChange}
+                handleFileChange={handleFileChange}
+                timezone={timezone}
+                setTimezone={setTimezone}
+                workHours={workHours}
+                setWorkHours={setWorkHours}
+                calls={formData.calls}
+                callsOptions={callsOptions}
+                setWorkExperiences={setWorkExperiences}
+              />
+            ) : [3].includes(currentStep) ? (
+              <StepFour
+                handleChange={handleChange}
+                calendlyUrl={calendlyUrl}
+                twitterUrl={twitterUrl}
+                linkedinUrl={linkedinUrl}
+                instagramUrl={instagramUrl}
+              />
+            ) : null}
             <div className={styles.submitGroup}>
               <button
                 type="submit"
