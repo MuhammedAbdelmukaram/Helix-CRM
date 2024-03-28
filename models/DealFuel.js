@@ -1,17 +1,22 @@
 const mongoose = require("mongoose");
 
+const WorkExperienceSchema = new mongoose.Schema({
+  company: String,
+  startDate: String, // Consider using Date type if you want to manipulate dates
+  endDate: String, // Consider using Date type if you want to manipulate dates
+});
+
 const ProfessionalRoleSchema = new mongoose.Schema({
   role: String,
   selected: Boolean,
 });
 
-const WorkExperienceSchema = new mongoose.Schema({
+const OfferDetailSchema = new mongoose.Schema({
+  offerName: String,
   company: String,
-  startDate: String, // Consider using Date type
-  endDate: String, // Consider using Date type
-  role: String,
-  responsibilities: String,
-  achievements: String, // Ensure this field is handled if included
+  triage: String,
+  avgOfferValue: String, // Consider using Number type if these will always be numeric
+  numberOfCloses: String, // Consider using Number type if these will always be numeric
 });
 
 const UserProfileSchema = new mongoose.Schema(
@@ -22,31 +27,26 @@ const UserProfileSchema = new mongoose.Schema(
     phoneNumber: String,
     amountClosed: String, // Consider using Number type if these will always be numeric
     city: String,
-    gender: String,
     country: String,
     numCompanies: String, // Consider using Number type if these will always be numeric
     age: String, // Consider using Number type if these will always be numeric
-    language: [String],
-    niche: [String],
+    language: String,
+    niche: String,
     experience: String,
     calls: String, // Consider using Number type if these will always be numeric
     calendlyUrl: String,
     twitterUrl: String,
     linkedinUrl: String,
-    instagramUrl: String,
-    timezone: String,
-    workHours: String,
-    aboutMe: String,
     professionalRoles: [ProfessionalRoleSchema],
-    desiredProfessionalRoles: [ProfessionalRoleSchema],
+    aboutMe: String,
+    aboutMeFile: String, // Store a reference to the file location if storing files elsewhere (e.g., AWS S3)
     workExperiences: [WorkExperienceSchema],
-    // Added to store professional roles as an array of strings
+    offerDetails: [OfferDetailSchema],
   },
   {
     timestamps: true, // Adds createdAt and updatedAt timestamps
   }
 );
 
-module.exports =
-  mongoose.models.UserProfile ||
+export default mongoose.models.UserProfile ||
   mongoose.model("UserProfile", UserProfileSchema);
