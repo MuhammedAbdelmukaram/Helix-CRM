@@ -4,8 +4,8 @@ import "../styles/globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Deal Fuel",
-  description: "Get your deals",
+  title: "DealFuel",
+  description: "Connecting businesses and sales reps",
   icons: {
     icon: "/icon.ico",
   },

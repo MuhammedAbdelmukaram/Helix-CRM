@@ -1,6 +1,7 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Header from "@/app/components/Common/Header";
+import axios from 'axios';
 import styles from "../profile.module.css";
 import VerticalLine from "@/app/components/Common/VerticalLine"; // Make sure you have this CSS file
 import Image from "next/image";
@@ -8,8 +9,26 @@ import Image from "next/image";
 const Profile = ({ params }) => {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [profileData, setProfileData] = useState(null);
 
-  const togglePlay = () => {
+
+
+    useEffect(() => {
+        if (params && params.id) {
+            axios.get(`http://localhost:3000/api/profile/${params.id}`)
+                .then(response => {
+                    setProfileData(response.data);
+                    console.log('Fetched profile data:', response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching profile data:', error);
+                });
+        }
+    }, [params]);
+
+
+
+    const togglePlay = () => {
     if (videoRef.current) {
       if (isPlaying) {
         videoRef.current.pause();
