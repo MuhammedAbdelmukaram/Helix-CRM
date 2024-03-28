@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import Image from "next/image";
 import ISO6391 from "iso-639-1";
@@ -12,7 +13,7 @@ import Indicators from "@/app/components/signup/indicators";
 
 import styles from "@/app/page.module.css";
 
-const StepForm = () => {
+export default function Page() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -250,7 +251,7 @@ const StepForm = () => {
       // Submit the data to the server
       setIsSubmitting(true);
       try {
-        const response = await fetch("/api/submitForm", {
+        const response = await fetch("/api/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -449,6 +450,4 @@ const StepForm = () => {
       )}
     </div>
   );
-};
-
-export default StepForm;
+}
